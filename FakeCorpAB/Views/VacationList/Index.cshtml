@@ -1,0 +1,90 @@
+﻿@model IEnumerable<VacationViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Vacation List</h1>
+<p>
+    <a asp-action="Create">Create new</a>
+</p>
+@{
+    var fromDate = (DateTime)ViewBag.fromDate;
+    var toDate = (DateTime)ViewBag.toDate;
+}
+
+@using (Html.BeginForm("Index", "VacationList", FormMethod.Get))
+{
+    <div>
+        From Date: @Html.TextBox("fromDate", string.Format("{0:dd MM yyyy}", fromDate), new { @class = "datefield", type = "date" })
+        To Date: @Html.TextBox("toDate", string.Format("{0:dd MM yyyy}", fromDate), new { @class = "datefield", type = "date" })
+        <input type="submit" value="Search" />
+    </div>
+}
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ApplicationTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VacationType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Start)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.End)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApplicationTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VacationType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Start)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.End)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @*<a asp-action="Edit" asp-route-id="@item.VacationListId">Edit</a> |*@
+                    <a asp-action="Delete" asp-route-id="@item.VacationListId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
